@@ -1,0 +1,9 @@
+{
+    // "emmet.includeLanguages": {
+    //     "javascript": "javascriptreact",
+    //     "typescript": "typescriptreact"
+    //   }
+    "emmet.includeLanguages": {
+        "javascript" :"javascriptreact",
+    }
+}
