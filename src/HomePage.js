@@ -6,15 +6,18 @@ const HomePage = (props) => {
   const [authenticated, setAuthenticated] = useState(true);
   return (
     <>
-      <nav>
-        <h2 className="text-3xl inline-block">Welcome to the homepage!</h2>
+      <nav className="flex justify-center items-center">
+        <h2 className="text-3xl inline-block m-3">Welcome to the homepage!</h2>
         <Link
-          className="bg-amber-500 text-cyan-800 rounded-lg px-1 m-5 "
+          className="text-indigo-800 font-semibold  border-x-2 px-2 bg-opacity-30 bg-white m-3 "
           to="/about"
         >
-          ....About Us
+          About Us
         </Link>
-        <button onClick={() => setAuthenticated((prev) => !prev)}>
+        <button
+          className="text-indigo-800 font-semibold  border-x-2 px-2 bg-opacity-30 bg-white m-3"
+          onClick={() => setAuthenticated((prev) => !prev)}
+        >
           {authenticated ? "Log out" : "Log in"}
         </button>
       </nav>
