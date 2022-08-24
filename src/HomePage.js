@@ -3,6 +3,7 @@ import Card from "./Card";
 import { useState } from "react";
 
 const HomePage = (props) => {
+  //dummy authentication state
   const [authenticated, setAuthenticated] = useState(true);
   return (
     <>

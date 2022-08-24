@@ -5,7 +5,7 @@ import Blog from "./Blog";
 import About from "./About";
 
 function App() {
-
+  //dummy blog, to be fetched from api
   const blogs = [
     {
       id: 1,
@@ -50,13 +50,14 @@ function App() {
   ];
 
   return (
-    <div>
-      <Routes>
-        <Route path="/" exact element={<HomePage blogs={blogs} />}></Route>
-        <Route path="/blog/:id" element={<Blog blogs={blogs} />}></Route>
-        <Route path="/about" element={<About />}></Route>
-      </Routes>
-    </div>
+    //react-router setup, <Routes> component strictly check and render element
+    //according to path(URI)
+    <Routes>
+      {/* <Route/> components creates a connection, but doesn't render anything */}
+      <Route path="/" exact element={<HomePage blogs={blogs} />}></Route>
+      <Route path="/blog/:id" element={<Blog blogs={blogs} />}></Route>
+      <Route path="/about" element={<About />}></Route>
+    </Routes>
   );
 }
 

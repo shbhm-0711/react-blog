@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Card = (props) => {
+  //url to send to when clicked on blog card
   const url = `./blog/${props.blogItem.id}`;
   return (
     <div className="p-3 basis-1/1 md:basis-1/2 xl:basis-1/3 ">
