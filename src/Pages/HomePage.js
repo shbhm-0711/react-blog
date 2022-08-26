@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import BlogCard from "./BlogCard";
+import BlogCard from "./Components/BlogCard";
 import { useState } from "react";
 
 const HomePage = (props) => {

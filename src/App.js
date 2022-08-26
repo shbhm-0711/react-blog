@@ -1,8 +1,8 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./HomePage";
-import Blog from "./Blog";
-import About from "./About";
+import Blog from "./Pages/Blog";
+import About from "./Pages/About";
 
 function App() {
   //dummy blog, to be fetched from api
