@@ -1,6 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
+import LoginPage from "./Pages/LoginPage";
 import Blog from "./Pages/Blog";
 import About from "./Pages/About";
 
@@ -62,9 +63,10 @@ function App() {
     //according to path(URI)
     <Routes>
       {/* <Route/> components creates a connection, but doesn't render anything */}
-      <Route path="/" exact element={<HomePage blogs={blogs} />}></Route>
-      <Route path="/blog/:id" element={<Blog blogs={blogs} />}></Route>
-      <Route path="/about" element={<About />}></Route>
+      <Route path="/" exact element={<HomePage blogs={blogs} />} />
+      <Route path="/blog/:id" element={<Blog blogs={blogs} />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/login-page" element={<LoginPage />} />
     </Routes>
   );
 }

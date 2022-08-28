@@ -15,6 +15,12 @@ const HomePage = (props) => {
         >
           About Us
         </Link>
+        <Link
+          className="text-indigo-800 font-semibold  border-x-2 px-2 bg-opacity-50 bg-lime-200 m-3 "
+          to="/login-page"
+        >
+          Login-page
+        </Link>
         <button
           className="text-indigo-800 font-semibold  border-x-2 px-2 bg-opacity-50 bg-lime-200 m-3"
           onClick={() => setAuthenticated((prev) => !prev)}
