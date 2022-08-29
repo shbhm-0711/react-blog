@@ -1,9 +1,10 @@
 import "./App.css";
+import BlogPage from "./Pages/BlogPage";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import Blog from "./Pages/Blog";
-import About from "./Pages/About";
+import HomePage from "./Pages/HomePage";
+import NavBar from "./Pages/Components/NavBar";
 
 function App() {
   //dummy blog, to be fetched from api
@@ -59,15 +60,18 @@ function App() {
   ];
 
   return (
-    //react-router setup, <Routes> component strictly check and render element
-    //according to path(URI)
-    <Routes>
-      {/* <Route/> components creates a connection, but doesn't render anything */}
-      <Route path="/" exact element={<HomePage blogs={blogs} />} />
-      <Route path="/blog/:id" element={<Blog blogs={blogs} />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/login-page" element={<LoginPage />} />
-    </Routes>
+    <>
+      <NavBar></NavBar>
+      {/* react-router setup, <Routes> component strictly check and render element */}
+      {/* according to path(URI) */}
+      <Routes>
+        {/* <Route/> components creates a connection, but doesn't render anything */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/blogs-page" exact element={<BlogPage blogs={blogs} />} />
+        <Route path="/blog/:id" element={<Blog blogs={blogs} />} />
+        <Route path="/login-page" element={<LoginPage />} />
+      </Routes>
+    </>
   );
 }
 

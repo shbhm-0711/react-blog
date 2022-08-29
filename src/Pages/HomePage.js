@@ -1,39 +1,28 @@
-import { Link } from "react-router-dom";
-import BlogCard from "./Components/BlogCard";
-import { useState } from "react";
+import React from "react";
 
-const HomePage = (props) => {
-  //dummy authentication state
-  const [authenticated, setAuthenticated] = useState(true);
+const HomePage = () => {
   return (
-    <>
-      <nav className="flex justify-center items-center">
-        <h2 className="text-3xl inline-block m-3">Welcome to the homepage!</h2>
-        <Link
-          className="text-indigo-800 font-semibold  border-x-2 px-2 bg-opacity-50 bg-lime-200 m-3 "
-          to="/about"
-        >
-          About Us
-        </Link>
-        <Link
-          className="text-indigo-800 font-semibold  border-x-2 px-2 bg-opacity-50 bg-lime-200 m-3 "
-          to="/login-page"
-        >
-          Login-page
-        </Link>
-        <button
-          className="text-indigo-800 font-semibold  border-x-2 px-2 bg-opacity-50 bg-lime-200 m-3"
-          onClick={() => setAuthenticated((prev) => !prev)}
-        >
-          {authenticated ? "Log out" : "Log in"}
-        </button>
-      </nav>
-      <div className="flex flex-wrap flex-row ">
-        {props.blogs.map((item) => {
-          return <BlogCard className="" blogItem={item} key={item.id} />;
-        })}
-      </div>
-    </>
+    <div className="flex-col">
+      <h1 className="text-5xl text-center mb-2">
+        This the Home Page of this blogs Site
+      </h1>
+      <p className="text-gray-400 text-center">
+        -We are proud to present you our blog handle-
+      </p>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore
+        ullam, qui mollitia id quos velit voluptatibus. Nesciunt eligendi nisi
+        porro facere laborum amet voluptates tempore id. Amet provident beatae
+        odio dolore! Rerum recusandae asperiores veniam sapiente molestiae,
+        quibusdam dolore fugiat dolorum corporis commodi voluptatem ab
+        necessitatibus laborum iure temporibus porro, architecto ad cupiditate
+        error itaque sit soluta placeat nulla! At ipsum quo a ex excepturi
+        doloribus odit fuga unde. Nesciunt animi optio, blanditiis amet quae
+        temporibus beatae laudantium, deleniti illum perspiciatis reprehenderit
+        ullam impedit modi adipisci odit dolorum! Enim eaque numquam quas
+        repudiandae temporibus repellat eveniet in blanditiis excepturi quos!
+      </p>
+    </div>
   );
 };
 
