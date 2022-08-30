@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const NavBar = () => {
-  const [authenticated, setAuthenticated] = useState(true);
+const NavBar = ({ authenticated, setAuthenticated }) => {
+  let navigate = useNavigate();
 
   return (
     <nav className="flex-col sm:flex-row md:justify-around">
@@ -15,9 +14,15 @@ const NavBar = () => {
       </button>
       <button
         className="text-indigo-800 font-semibold  border-x-2 px-1 bg-opacity-50 bg-lime-200 m-3 mx-1 block sm:inline min-w-[110px] text-center"
-        onClick={() => setAuthenticated((prev) => !prev)}
+        onClick={() => {
+          if (authenticated) {
+            setAuthenticated((prev) => !prev);
+          } else {
+            navigate("/login-page");
+          }
+        }}
       >
-        {authenticated ? "Log out" : "Log in"}
+        {authenticated ? "Log out" : "log in"}
       </button>
     </nav>
   );

@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 import BlogPage from "./Pages/BlogPage";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
@@ -8,6 +9,7 @@ import NavBar from "./Pages/Components/NavBar";
 
 function App() {
   //dummy blog, to be fetched from api
+  const [authenticated, setAuthenticated] = useState(true);
   const blogs = [
     {
       id: 1,
@@ -61,7 +63,10 @@ function App() {
 
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar
+        authenticated={authenticated}
+        setAuthenticated={setAuthenticated}
+      ></NavBar>
       {/* react-router setup, <Routes> component strictly check and render element */}
       {/* according to path(URI) */}
       <Routes>
@@ -69,7 +74,10 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/blogs-page" exact element={<BlogPage blogs={blogs} />} />
         <Route path="/blog/:id" element={<Blog blogs={blogs} />} />
-        <Route path="/login-page" element={<LoginPage />} />
+        <Route
+          path="/login-page"
+          element={<LoginPage setAuthenticated={setAuthenticated} />}
+        />
       </Routes>
     </>
   );
