@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ReactPortal } from "react";
+import LogoutModal from "./LogoutModal.js";
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
+  const [nullAuth, setNullAuth] = useState(null);
   let navigate = useNavigate();
   console.log(window.location.pathname);
   return (
@@ -19,13 +21,21 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
           onClick={() => {
             if (authenticated) {
               setAuthenticated((prev) => !prev);
+              setNullAuth(true);
             } else {
               navigate("/login-page");
+              setNullAuth(null);
             }
           }}
         >
           {authenticated ? "Log out" : "log in"}
         </button>
+      )}
+      {nullAuth && (
+        <LogoutModal
+          nullAuth={nullAuth}
+          setNullAuth={setNullAuth}
+        ></LogoutModal>
       )}
     </nav>
   );
