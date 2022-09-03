@@ -1,7 +1,6 @@
 import BlogCard from "./Components/BlogCard";
 
 const BlogPage = (props) => {
-  //dummy authentication state
   return (
     <>
       <div className="flex flex-wrap flex-row ">

@@ -9,6 +9,7 @@ const Blog = (props) => {
     //stores blog from props which matches URI id
     let blogn = props.blogs.find((blog) => blog.id === parseInt(id));
     // if blogn is not null setting blog state
+    console.log(blogn);
     if (blogn) {
       setBlog(blogn);
     }
@@ -16,7 +17,10 @@ const Blog = (props) => {
   return (
     <>
       {/* button to go back to homepage */}
-      <Link className="bg-amber-500 text-cyan-800 rounded-lg p-1 m-2" to="/">
+      <Link
+        className="bg-amber-500 text-cyan-800 rounded-lg p-1 m-2"
+        to="/blogs-page"
+      >
         ← go back
       </Link>
       {blog ? (

@@ -3,7 +3,7 @@ import React from "react";
 const HomePage = () => {
   return (
     <div className="flex-col">
-      <h1 className="text-5xl text-center mb-2">
+      <h1 className="text-5xl text-center mb-2 mt-0">
         This the Home Page of this blogs Site
       </h1>
       <p className="text-gray-400 text-center">

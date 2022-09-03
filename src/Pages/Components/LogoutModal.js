@@ -14,19 +14,14 @@ export const BackDrop = (props) => {
 
 export const Modal = () => {
   return (
-    <div className="z-50 mx-auto absolute top-0 w-screen h-[150px] sm:h-[200px] md:h-[270px] lg:h-auto lg:p-10 bg-white rounded-b-3xl ">
-      <h1 className="z-50 align-middle text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-center text-sky-600 ">
+    <div className="z-50 absolute top-0 w-screen lg:w-[800px] lg:left-1/2 lg:ml-[-400px] h-[150px] sm:h-[180px] md:h-[220px] lg:h-[340px] md:top-1/2 md:mt-[-110px] md:rounded-none lg:rounded-3xl lg:top-1/2 lg:mt-[-170px] lg:p-10 bg-gray-300 rounded-b-3xl text-center">
+      <h1 className="z-50 align-middle text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-center text-sky-700 ">
         Logged out successfully!!
       </h1>
+      <span className="text-slate-500 text-xs bottom-0">
+        * click outside to close *
+      </span>
     </div>
-    // <div
-    //   className="z-50 m-auto absolute top-0 w-screen lg:w-[1000px] md:w-screen  h-[150px] sm:h-[200px] md:h-[270px] lg:h-[300px]
-    // left-[calc(50%-(w-screen/2))] lg:left-[50%-500px] bg-white rounded-b-3xl "
-    // >
-    //   <h1 className="z-50 align-middle text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-center text-sky-600 ">
-    //     Logged out successfully!!
-    //   </h1>
-    // </div>
   );
 };
 
