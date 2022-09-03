@@ -7,13 +7,19 @@ const BlogCard = (props) => {
   const url = `../blog/${props.blogItem.id}`;
   return (
     <div className="p-3 basis-1/1 md:basis-1/2 xl:basis-1/3 ">
-      <div className="bg-slate-900 text-orange-500 flex-auto rounded-3xl p-3">
+      <div className="bg-stone-900 text-orange-800 flex-auto rounded-3xl p-3">
+        {/* <div className="bg-slate-900 text-orange-500 flex-auto rounded-3xl p-3"> */}
         <Link to={url} className={props.className} {...props.others}>
-          <h1 className="text-2xl">
+          <h1 className="text-2xl text-orange-700">
             <span className="select-none">o </span>
             {props.blogItem.title}
           </h1>
-          <p>{props.blogItem.body}</p>
+          <p>
+            {props.blogItem.body}
+            <span className="text-[10px] text-white opacity-[25%]">
+              {`   ...read more`}
+            </span>
+          </p>
           <div className="flex">
             {/* <img src={process.env.PUBLIC_URL+"/Blog192.png"} alt="auther dp" className="h-3 w-3"></img> */}
             <img
@@ -21,7 +27,9 @@ const BlogCard = (props) => {
               alt="auther dp"
               className="h-8 w-8 rounded-xl"
             ></img>
-            <h1 className="text-3xl ml-3">~ {props.blogItem.author}</h1>
+            <h1 className="text-3xl ml-3 text-orange-700">
+              ~ {props.blogItem.author}
+            </h1>
           </div>
         </Link>
       </div>
