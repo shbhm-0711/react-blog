@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LogoutModal from "./LogoutModal.js";
+import SuccessOrFailModal from "./SuccessOrFailModal.js";
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
   const [nullAuth, setNullAuth] = useState(null);
@@ -17,9 +17,6 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
       <button className="text-indigo-800 font-semibold border-x-2 px-1 bg-opacity-50 bg-lime-100 mx-1 mt-1 inline w-[110px]">
         <Link to="/blogs-page">All Blogs</Link>
       </button>
-      {/* <button className="text-indigo-800 font-semibold  border-x-2 px-1 bg-opacity-50 bg-lime-200 m-3 mx-1  inline min-w-[110px] text-center">
-        <Link to="/login-page">Login-page</Link>
-      </button> */}
       {window.location.pathname.toString() !== "/login-page" && (
         <button
           className="text-indigo-800 font-semibold  border-x-2 px-1 bg-opacity-50 bg-lime-100 mx-1 mt-1 inline min-w-[110px] text-center"
@@ -37,10 +34,11 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
         </button>
       )}
       {nullAuth && (
-        <LogoutModal
+        <SuccessOrFailModal
           nullAuth={nullAuth}
           setNullAuth={setNullAuth}
-        ></LogoutModal>
+          action="Logged out"
+        />
       )}
     </nav>
   );
