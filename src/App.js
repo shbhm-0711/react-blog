@@ -6,10 +6,15 @@ import LoginPage from "./Pages/LoginPage";
 import Blog from "./Pages/Blog";
 import HomePage from "./Pages/HomePage";
 import NavBar from "./Pages/Components/NavBar";
+import useFetch from "./Components/useFetch";
 
 function App() {
   //dummy blog, to be fetched from api
   const [authenticated, setAuthenticated] = useState(true);
+  const [blogsOff, dataLoading, error] = useFetch(
+    "http://localhost:5000/api/v1/blogs",
+    []
+  );
   const blogs = [
     {
       id: 1,
