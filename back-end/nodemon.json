@@ -1,0 +1,4 @@
+{
+  "watch": ["index.js", "src/", ".env"],
+  "ext": "js, css"
+}
