@@ -1,13 +1,21 @@
-import express from "express";
-// require("dotenv").config();
 import env from "dotenv";
 env.config();
+import connect from "./config/database.js";
+connect(process.env.MONGODB_URL);
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
+
+import User from "./model/user.js";
+
+import blogData from "./data.js";
 
 const apt = express();
 apt.use(express.json());
+apt.use(cookieParser());
 
-const port = process.env.PORT;
-// const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
 apt.get("/api", (req, res) => {
   res.send("<h1>go to /api/v1 or /api/v2  for api routes</h1>");
@@ -16,58 +24,69 @@ apt.get("/api/v1", (req, res) => {
   res.send("Welcome");
 });
 apt.get("/api/v1/blogs", (req, res) => {
-  res.json({
-    blogs: [
-      {
-        id: 1,
-        title: "Blog_one",
-        body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, quae aspernatur? Ab nesciunt explicabo non? Molestiae iusto perspiciatis aut laborum architecto quam illo magnam fugiat est cum officiis consequatur provident ea, tempora at quaerat. Debitis soluta dolores vero natus quia praesentium deleniti voluptates rem magni itaque quos, delectus dolore autem!",
-        author: "B",
-      },
-      {
-        id: 2,
-        title: "Blog_two",
-        body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, quae aspernatur? Ab nesciunt explicabo non? Molestiae iusto perspiciatis aut laborum architecto quam illo magnam fugiat est cum officiis consequatur provident ea, tempora at quaerat. Debitis soluta dolores vero natus quia praesentium deleniti voluptates rem magni itaque quos, delectus dolore autem!",
-        author: "A",
-      },
-      {
-        id: 3,
-        title: "Blog_Three",
-        body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, quae aspernatur? Ab nesciunt explicabo non? Molestiae iusto perspiciatis aut laborum architecto quam illo magnam fugiat est cum officiis consequatur provident ea, tempora at quaerat. Debitis soluta dolores vero natus quia praesentium deleniti voluptates rem magni itaque quos, delectus dolore autem!",
-        author: "C",
-      },
-      {
-        id: 4,
-        title: "Blog_Four",
-        body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, quae aspernatur? Ab nesciunt explicabo non? Molestiae iusto perspiciatis aut laborum architecto quam illo magnam fugiat est cum officiis consequatur provident ea, tempora at quaerat. Debitis soluta dolores vero natus quia praesentium deleniti voluptates rem magni itaque quos, delectus dolore autem!",
-        author: "B",
-      },
-      {
-        id: 5,
-        title: "Blog_Five",
-        body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, quae aspernatur? Ab nesciunt explicabo non? Molestiae iusto perspiciatis aut laborum architecto quam illo magnam fugiat est cum officiis consequatur provident ea, tempora at quaerat. Debitis soluta dolores vero natus quia praesentium deleniti voluptates rem magni itaque quos, delectus dolore autem!",
-        author: "B",
-      },
-      {
-        id: 6,
-        title: "Blog_Six",
-        body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, quae aspernatur? Ab nesciunt explicabo non? Molestiae iusto perspiciatis aut laborum architecto quam illo magnam fugiat est cum officiis consequatur provident ea, tempora at quaerat. Debitis soluta dolores vero natus quia praesentium deleniti voluptates rem magni itaque quos, delectus dolore autem!",
-        author: "C",
-      },
-      {
-        id: 7,
-        title: "Blog_Seven",
-        body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, quae aspernatur? Ab nesciunt explicabo non? Molestiae iusto perspiciatis aut laborum architecto quam illo magnam fugiat est cum officiis consequatur provident ea, tempora at quaerat. Debitis soluta dolores vero natus quia praesentium deleniti voluptates rem magni itaque quos, delectus dolore autem!",
-        author: "A",
-      },
-      {
-        id: 8,
-        title: "Blog_Eight",
-        body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, quae aspernatur? Ab nesciunt explicabo non? Molestiae iusto perspiciatis aut laborum architecto quam illo magnam fugiat est cum officiis consequatur provident ea, tempora at quaerat. Debitis soluta dolores vero natus quia praesentium deleniti voluptates rem magni itaque quos, delectus dolore autem!",
-        author: "A",
-      },
-    ],
-  });
+  res.json(blogData);
+});
+
+apt.post("/api/v1/register", async (req, res) => {
+  try {
+    const { firstname, lastname, email, password } = req.body;
+    if (!(email && password && firstname && lastname)) {
+      res.status(400).send("All fields are required");
+    }
+    const existingUser = await User.findOne({ email }); // PROMISE
+    if (existingUser) {
+      res.status(401).send("User already exists");
+    }
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      firstname,
+      lastname,
+      email: email.toLowerCase(),
+      password: encryptedPassword,
+    });
+    //TOKEN
+    jwt.sign({ user_id: user._id }, process.env.SECRET_JWT_KEY, {
+      expiresIn: "2h",
+    });
+    user.token = token;
+    user.password = undefined;
+    user.status(210).json("Created:\n", user);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+apt.post("/api/v1/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!(email && password)) {
+      res.status(400).send("Missing field");
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(400).send("Wrong Email");
+    }
+    if (user && bcrypt.compare(password, user.password)) {
+      const token = jwt.sign(
+        { user_id: user._id, email },
+        process.env.SECRET_JWT_KEY,
+        { expiresIn: "2h" }
+      );
+      user.token = token;
+      user.password = undefined;
+      // res.status(200).json(user);
+      //cookie
+      const options = {
+        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        httpOnly: true,
+      };
+      res
+        .status(200)
+        .cookie("token", token, options)
+        .json({ success: true, token, user });
+    }
+    res.status(400).send("Password does not match.");
+  } catch (error) {}
 });
 
 apt.listen(port, () => {
