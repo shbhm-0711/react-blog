@@ -24,7 +24,8 @@ apt.get("/api/v1", (req, res) => {
   res.send("Welcome");
 });
 apt.get("/api/v1/blogs", (req, res) => {
-  res.json(blogData);
+  console.log("GET on Blog Data");
+  res.status(200).json(blogData);
 });
 
 apt.post("/api/v1/register", async (req, res) => {

@@ -5,7 +5,7 @@ import SuccessOrFailModal from "./SuccessOrFailModal.js";
 const NavBar = ({ authenticated, setAuthenticated }) => {
   const [nullAuth, setNullAuth] = useState(null);
   let navigate = useNavigate();
-  console.log(window.location.pathname);
+  // console.log(window.location.pathname);
   return (
     <nav className=" bg-stone-900 flex-row md:justify-around text-center p-4 pt-2">
       <h2 className="text-3xl m-3 mt-0 block md:inline">

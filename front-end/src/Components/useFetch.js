@@ -5,11 +5,12 @@ const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
+    console.log("TRYING FETCH");
     if (!url) {
       return;
     }
     (async () => {
-      console.log("TRYING FETCH");
+      console.log("TRYING FETCH IN");
       const res = await fetch(url);
       res
         .json()

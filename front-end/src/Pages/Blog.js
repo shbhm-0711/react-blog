@@ -7,7 +7,10 @@ const Blog = (props) => {
   const [blog, setBlog] = useState(null);
   useEffect(() => {
     //stores blog from props which matches URI id
-    let blogn = props.blogs.find((blog) => blog.id === parseInt(id));
+    let blogn;
+    props.blogs
+      ? (blogn = props.blogs.find((blog) => blog.id === parseInt(id)))
+      : (blogn = null);
     // if blogn is not null setting blog state
     console.log(blogn);
     if (blogn) {
