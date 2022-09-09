@@ -13,12 +13,12 @@ const BlogPage = (props) => {
   return (
     <>
       <div className="flex flex-wrap flex-row ">
-        {props.blogs ? (
+        {props.blogs[0].id === -1 ? (
+          <h1 className="text-5xl">Be Patient. We're Getting the data...</h1>
+        ) : (
           props.blogs.map((item) => {
             return <BlogCard className="" blogItem={item} key={item.id} />;
           })
-        ) : (
-          <h1>Loading...........</h1>
         )}
       </div>
     </>

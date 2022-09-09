@@ -45,8 +45,16 @@ function App() {
                       {
                         id: -1,
                         title: "Loading data or Error in loading",
-                        body: "this is a Failure demo, check if serer is running",
-                        author: "By Ract blogs",
+                        body: [
+                          {
+                            type: "p",
+                            props: {
+                              className: `text-sm`,
+                              children: `demo`,
+                            },
+                          },
+                        ],
+                        author: "By React blogs",
                       },
                     ]
               }
