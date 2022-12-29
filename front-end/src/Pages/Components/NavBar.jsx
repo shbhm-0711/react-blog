@@ -1,6 +1,7 @@
+import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SuccessOrFailModal from "./SuccessOrFailModal.js";
+import SuccessOrFailModal from "./SuccessOrFailModal.jsx";
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
   const [nullAuth, setNullAuth] = useState(null);

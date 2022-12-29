@@ -1,5 +1,5 @@
-import { BlogContext } from "../Components/useCustomContexts";
-import { useContext } from "react";
+import { BlogContext } from "./useCustomContexts";
+import React, { useContext } from "react";
 
 export const useBlog = () => useContext(BlogContext);
 
