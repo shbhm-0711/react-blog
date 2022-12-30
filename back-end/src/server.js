@@ -20,9 +20,11 @@ const port = process.env.PORT || 4000;
 apt.get("/api", (req, res) => {
   res.send("<h1>go to /api/v1 or /api/v2  for api routes</h1>");
 });
+
 apt.get("/api/v1", (req, res) => {
   res.send("Welcome");
 });
+
 apt.get("/api/v1/blogs", (req, res) => {
   console.log("GET on Blog Data");
   res.status(200).json(blogData);
@@ -74,7 +76,7 @@ apt.post("/api/v1/login", async (req, res) => {
         { expiresIn: "2h" }
       );
       user.token = token;
-      user.password = undefined;
+      user.password = null;
       // res.status(200).json(user);
       //cookie
       const options = {
@@ -91,5 +93,5 @@ apt.post("/api/v1/login", async (req, res) => {
 });
 
 apt.listen(port, () => {
-  console.log(`Server serving on port ${port}`);
+  console.log(`Server serving on http://localhost:${port}`);
 });

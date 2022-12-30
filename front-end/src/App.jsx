@@ -6,21 +6,12 @@ import LoginPage from "./Pages/LoginPage";
 import Blog from "./Pages/Blog";
 import HomePage from "./Pages/HomePage";
 import NavBar from "./Pages/Components/NavBar";
-import useFetch from "./Components/useFetch";
-import { BlogContext, blogsVal } from "./Components/useCustomContexts";
+import useFetch from "./customHooks/useFetch";
+import { BlogContext, blogsVal } from "./customHooks/useCustomContexts";
 
 function App() {
-  //dummy blog, to be fetched from api
   const [authenticated, setAuthenticated] = useState(true);
-  const [blogRes, dataLoading, error] = useFetch(
-    "http://localhost:3000/api/v1/blogs"
-  );
-  // console.log("data:");
-  // console.log(blogRes);
-  // console.log("loading:");
-  // console.log(dataLoading);
-  // console.log("error:");
-  // console.log(error);
+  const [blogRes, dataLoading, error] = useFetch("/api/v1/blogs");
 
   return (
     <BlogContext.Provider value={blogsVal}>
@@ -28,10 +19,7 @@ function App() {
         authenticated={authenticated}
         setAuthenticated={setAuthenticated}
       ></NavBar>
-      {/* react-router setup, <Routes> component strictly check and render element */}
-      {/* according to path(URI) */}
       <Routes>
-        {/* <Route/> components creates a connection, but doesn't render anything */}
         <Route path="/" element={<HomePage />} />
         <Route
           path="/blogs-page"
