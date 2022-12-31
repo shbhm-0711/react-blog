@@ -1,22 +1,27 @@
-import React, { useEffect, useState, Fragment, createElement } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
+import { blogContext } from "../App";
 
-const Blog = (props) => {
+const Blog = () => {
+  const { state, _ } = React.useContext(blogContext);
+
   //takes url parameter defined in route component using : (:id in this case)
   const { id } = useParams();
-  const [blog, setBlog] = useState(null);
-  useEffect(() => {
+  const [blog, setBlog] = React.useState(null);
+
+  React.useEffect(() => {
     //stores blog from props which matches URI id
     let blogn;
-    props.blogs
-      ? (blogn = props.blogs.find((blog) => blog.id === parseInt(id)))
+    state.data.blogs
+      ? (blogn = state.data.blogs.find((blog) => blog.id === parseInt(id)))
       : (blogn = null);
     // if blogn is not null setting blog state
     console.log(blogn);
     if (blogn) {
       setBlog(blogn);
     }
-  }, [id, props.blogs]);
+  }, [id, state.data.blogs]);
+
   return (
     <>
       {/* button to go back to homepage */}
@@ -24,7 +29,7 @@ const Blog = (props) => {
         className="bg-amber-500 text-cyan-800 rounded-lg p-1 m-2"
         to="/blogs-page"
       >
-        ← go back
+        ← back
       </Link>
       {blog ? (
         <div className="mx-auto w-[70%]">
@@ -33,7 +38,9 @@ const Blog = (props) => {
           </h1>
           {/* <p>{blog.body}</p> */}
           {blog.body.map((i, index) => (
-            <Fragment key={index}>{createElement(i.type, i.props)}</Fragment>
+            <React.Fragment key={index}>
+              {React.createElement(i.type, i.props)}
+            </React.Fragment>
           ))}
         </div>
       ) : (

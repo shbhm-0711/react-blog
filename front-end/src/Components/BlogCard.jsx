@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+// other ways  of getting public icons
 // import icon from `${process.env.PUBLIC_URL}+${"/Blog192.png"}`;
 // import icon from "/Blog192.png";
 

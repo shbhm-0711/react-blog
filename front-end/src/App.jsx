@@ -1,79 +1,67 @@
 import "./App.css";
-import React, { useState } from "react";
-import BlogPage from "./Pages/BlogPage";
+import React from "react";
+import { Blog, BlogPage, LoginPage, HomePage } from "./Pages/index";
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "./Pages/LoginPage";
-import Blog from "./Pages/Blog";
-import HomePage from "./Pages/HomePage";
-import NavBar from "./Pages/Components/NavBar";
-import useFetch from "./customHooks/useFetch";
-import { BlogContext, blogsVal } from "./customHooks/useCustomContexts";
+import NavBar from "./Components/NavBar";
+
+export const blogContext = React.createContext(null);
+
+const initialState = {
+  data: null,
+  loading: true,
+  error: null,
+  authenticated: true,
+  user: "Demo",
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "FETCH_DATA_SUCCESS":
+      return {
+        ...state,
+        data: action.payload,
+        loading: false,
+      };
+    case "FETCH_DATA_ERROR":
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    case "AUTH":
+      return { ...state, authenticated: !state.authenticated };
+    default:
+      return state;
+  }
+}
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(true);
-  const [blogRes, dataLoading, error] = useFetch("/api/v1/blogs");
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  React.useEffect(() => {
+    (async function fetchData() {
+      fetch("/api/v1/blogs")
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({ type: "FETCH_DATA_SUCCESS", payload: data });
+          console.log(data);
+        })
+        .catch((error) =>
+          dispatch({ type: "FETCH_DATA_ERROR", payload: error })
+        );
+    })();
+  }, []);
 
   return (
-    <BlogContext.Provider value={blogsVal}>
-      <NavBar
-        authenticated={authenticated}
-        setAuthenticated={setAuthenticated}
-      ></NavBar>
+    <blogContext.Provider value={{ state, dispatch }}>
+      <NavBar></NavBar>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/blogs-page"
-          exact
-          element={
-            <BlogPage
-              blogs={
-                blogRes
-                  ? blogRes.blogs
-                  : [
-                      {
-                        id: -1,
-                        title: "Loading data or Error in loading",
-                        body: [
-                          {
-                            type: "p",
-                            props: {
-                              className: `text-sm`,
-                              children: `demo`,
-                            },
-                          },
-                        ],
-                        author: "By React blogs",
-                      },
-                    ]
-              }
-            />
-          }
-        />
-        <Route
-          path="/blog/:id"
-          element={
-            <Blog
-              blogs={
-                blogRes
-                  ? blogRes.blogs
-                  : [
-                      {
-                        id: -1,
-                        title: "Loading data or Error in loading",
-                        body: "this is a Failure demo, check if serer is running",
-                        author: "By Ract blogs",
-                      },
-                    ]
-              }
-            />
-          }
-        />
-        <Route
-          path="/login-page"
-          element={<LoginPage setAuthenticated={setAuthenticated} />}
-        />
+        <Route path="/blogs-page" exact element={<BlogPage />} />
+        <Route path="/blog/:id" element={<Blog />} />
+        <Route path="/login-page" element={<LoginPage />} />
       </Routes>
-    </BlogContext.Provider>
+    </blogContext.Provider>
   );
 }
 

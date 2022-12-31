@@ -26,7 +26,7 @@ apt.get("/api/v1", (req, res) => {
 });
 
 apt.get("/api/v1/blogs", (req, res) => {
-  console.log("GET on Blog Data");
+  console.count("GET on Blog Data");
   res.status(200).json(blogData);
 });
 

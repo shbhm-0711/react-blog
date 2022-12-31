@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { blogContext } from "../App";
 
-const LoginPage = ({ setAuthenticated }) => {
+const LoginPage = () => {
   let navigate = useNavigate();
-
+  const { _, dispatch } = React.useContext(blogContext);
   return (
     <form
       // className="p-5 m-auto my-7 rounded-2xl bg-stone-900 text-center w-[300px] h-[200px]"
@@ -11,7 +12,7 @@ const LoginPage = ({ setAuthenticated }) => {
       onSubmit={(event) => {
         event.preventDefault();
 
-        setAuthenticated(true);
+        dispatch({ type: "AUTH" });
         navigate("/");
       }}
     >

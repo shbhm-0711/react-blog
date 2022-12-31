@@ -1,11 +1,12 @@
 import React from "react";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { blogContext } from "../App.jsx";
 import SuccessOrFailModal from "./SuccessOrFailModal.jsx";
 
-const NavBar = ({ authenticated, setAuthenticated }) => {
-  const [nullAuth, setNullAuth] = useState(null);
+const NavBar = () => {
+  const [nullAuth, setNullAuth] = React.useState(null);
   let navigate = useNavigate();
+  const { state, dispatch } = React.useContext(blogContext);
   // console.log(window.location.pathname);
   return (
     <nav className=" bg-stone-900 bg-gradient-to-t from-slate-800 to-slate-900 shadow-2xl shadow-[#071531] flex-row md:justify-around text-center p-4 pt-2 mb-5">
@@ -22,8 +23,8 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
         <button
           className="text-indigo-300 font-semibold rounded-md p-1 bg-opacity-50 bg-gradient-to-t from-blue-800 to-slate-800 shadow-3xl mx-1 mt-1 inline w-[110px]"
           onClick={() => {
-            if (authenticated) {
-              setAuthenticated((prev) => !prev);
+            if (state.authenticated) {
+              dispatch({ type: "AUTH" });
               setNullAuth(true);
             } else {
               navigate("/login-page");
@@ -31,14 +32,14 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
             }
           }}
         >
-          {authenticated ? "Log out" : "log in"}
+          {state.authenticated ? "Log out" : "log in"}
         </button>
       )}
       {nullAuth && (
         <SuccessOrFailModal
           nullAuth={nullAuth}
           setNullAuth={setNullAuth}
-          action="Logged out"
+          action="Logging out"
         />
       )}
     </nav>

@@ -25,7 +25,8 @@ export const Modal = (props) => {
         className={`"z-50 align-middle text-6xl sm:text-7xl
         md:text-8xl lg:text-9xl text-center text-sky-700 "`}
       >
-        {props.action} {props.success ? "successfully!!" : "was Unsuccessfull"}
+        {props.action}{" "}
+        {props.success ? "was successfull!!" : "was unsuccessfull"}
       </h1>
       <span className="text-slate-500 text-xs bottom-0">
         *
@@ -45,7 +46,7 @@ export const Modal = (props) => {
 
 const SuccessOrFailModal = (props) => {
   return (
-    <>
+    <React.Fragment>
       {createPortal(
         <Modal
           setNullAuth={props.setNullAuth}
@@ -59,7 +60,7 @@ const SuccessOrFailModal = (props) => {
         <BackDrop setNullAuth={props.setNullAuth} />,
         document.getElementById("rootBackdrop")
       )}
-    </>
+    </React.Fragment>
   );
 };
 SuccessOrFailModal.defaultProps = {
