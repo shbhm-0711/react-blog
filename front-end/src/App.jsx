@@ -28,6 +28,10 @@ function reducer(state, action) {
         error: action.payload,
         loading: false,
       };
+    case "LOADING_TRUE":
+      return { ...state, loading: true };
+    case "LOADING_FALSE":
+      return { ...state, loading: false };
     case "AUTH":
       return { ...state, authenticated: !state.authenticated };
     default:
@@ -44,6 +48,7 @@ function App() {
         .then((res) => res.json())
         .then((data) => {
           dispatch({ type: "FETCH_DATA_SUCCESS", payload: data });
+
           console.log(data);
         })
         .catch((error) =>
@@ -54,7 +59,7 @@ function App() {
 
   return (
     <blogContext.Provider value={{ state, dispatch }}>
-      <NavBar></NavBar>
+      <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/blogs-page" exact element={<BlogPage />} />

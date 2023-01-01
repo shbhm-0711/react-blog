@@ -13,7 +13,7 @@ const Blog = () => {
     //stores blog from props which matches URI id
     let blogn;
     state.data.blogs
-      ? (blogn = state.data.blogs.find((blog) => blog.id === parseInt(id)))
+      ? (blogn = state.data.blogs.find((blog) => +blog.id === parseInt(id)))
       : (blogn = null);
     // if blogn is not null setting blog state
     console.log(blogn);
@@ -23,7 +23,7 @@ const Blog = () => {
   }, [id, state.data.blogs]);
 
   return (
-    <>
+    <React.Fragment>
       {/* button to go back to homepage */}
       <Link
         className="bg-amber-500 text-cyan-800 rounded-lg p-1 m-2"
@@ -43,10 +43,17 @@ const Blog = () => {
             </React.Fragment>
           ))}
         </div>
+      ) : state.loading ? (
+        <h1>Loading Data... Please Wait</h1>
+      ) : state.error ? (
+        <React.Fragment>
+          <h1>An Error occured while getting the data</h1>
+          <pre>{state.error}</pre>
+        </React.Fragment>
       ) : (
-        <h1>Searching or Invalid Link</h1>
+        <h1>Loading page.. Please Wait</h1>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

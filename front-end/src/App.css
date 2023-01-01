@@ -1,5 +1,15 @@
-body{
+body {
   /* background-color: rgb(6, 46, 121); */
   background-color: #071531;
-  color:rgb(205, 205, 205);
+  color: rgb(205, 205, 205);
+}
+*::-moz-selection {
+  /* Code for Firefox */
+  color: rgb(155, 176, 96);
+  background: rgba(0, 0, 0, 0.379);
+}
+
+*::selection {
+  color: rgb(155, 176, 96);
+  background: rgba(0, 0, 0, 0.379);
 }
